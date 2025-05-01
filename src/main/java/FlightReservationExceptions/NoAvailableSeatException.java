@@ -8,7 +8,7 @@ import reservationObjects.Flight;
 
 /**
  *
- * @author Zahera
+ * @author Roaa
  */
 public class NoAvailableSeatException extends RuntimeException{
     private Flight flight;
