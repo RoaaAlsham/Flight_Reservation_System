@@ -6,17 +6,18 @@ package enumFiles;
 
 /**
  *
- * @author Zahera
+ * @author Roaa
  */
 public enum seatTypes {
-    Window_Seat (0) ,
-    Middle_Seat (1),
-    Aisle_Seat (2);
-    
-    private int seatPrice=100;
+    Window_Seat(0),
+    Middle_Seat(1),
+    Aisle_Seat(2);
+
+    private int seatPrice = 100;
     private int seatCode;
-    seatTypes(int seatCode){
-        this.seatCode= seatCode;
+
+    seatTypes(int seatCode) {
+        this.seatCode = seatCode;
     }
 
     public int getSeatCode() {
@@ -34,6 +35,5 @@ public enum seatTypes {
     public void setSeatPrice(int seatPrice) {
         this.seatPrice = seatPrice;
     }
-    
-}
 
+}

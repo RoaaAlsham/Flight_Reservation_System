@@ -6,13 +6,13 @@ package FlightReservationExceptions;
 
 /**
  *
- * @author Zahera
+ * @author Roaa
  */
 public class EmptyFieldException extends IllegalArgumentException {
 
     public EmptyFieldException(String fieldName) {
-        super("invalid empty field : \n" 
-                + fieldName+ "is empty");
+        super("invalid empty field : \n"
+                + fieldName + "is empty");
     }
-    
+
 }
