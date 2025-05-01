@@ -20,19 +20,15 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jScrollPane1" alignment="1" min="-2" pref="399" max="-2" attributes="0"/>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="lbl_haventYouRegistered" min="-2" max="-2" attributes="0"/>
-                              <Component id="btn_goToAdminPageForTest" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                          <Component id="btn_goToRegisterPage" min="-2" pref="190" max="-2" attributes="0"/>
-                      </Group>
+                  <Component id="jScrollPane1" min="-2" pref="422" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="lbl_haventYouRegistered" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="btn_goToRegisterPage" min="-2" pref="190" max="-2" attributes="0"/>
                   </Group>
                   <Component id="lbl_loginPage" alignment="0" min="-2" pref="136" max="-2" attributes="0"/>
                   <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
@@ -54,7 +50,7 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="101" max="32767" attributes="0"/>
+              <EmptySpace pref="120" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -78,16 +74,14 @@
                   <Component id="btn_Login" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="checkBox_i_am_an_admin" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" pref="169" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="203" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lbl_haventYouRegistered" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btn_goToRegisterPage" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-              <Component id="btn_goToAdminPageForTest" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="95" max="32767" attributes="0"/>
+              <EmptySpace pref="69" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -106,6 +100,9 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lbl_email">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="16" style="0"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Email"/>
       </Properties>
     </Component>
@@ -113,6 +110,9 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lbl_password">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="16" style="0"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="password"/>
       </Properties>
     </Component>
@@ -128,6 +128,9 @@
         <Component class="javax.swing.JTextArea" name="jTextArea1">
           <Properties>
             <Property name="columns" type="int" value="20"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="0"/>
+            </Property>
             <Property name="rows" type="int" value="5"/>
             <Property name="text" type="java.lang.String" value="Help: already registered users&#xa;&#xa; admin1= &quot;admin1@example.com&quot;, pass= &quot;admin1&quot;&#xa; admin2= &quot;admin2@example.com&quot;, pass= &quot;admin2&quot;&#xa; admin3=&quot;admin3@example.com&quot;, pass= &quot;admin3&quot;&#xa;   &#xa;customer1= &quot;customer1@example.com&quot;, pass= &quot;customer1&quot;&#xa;customer2= &quot;customer2@example.com&quot;, pass= &quot;customer2&quot;&#xa;customer3=&quot;customer3@example.com&quot;, pass= &quot;customer3&quot;"/>
           </Properties>
@@ -136,6 +139,12 @@
     </Container>
     <Component class="javax.swing.JButton" name="btn_Login">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="cc" green="99" red="ff" type="rgb"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="16" style="1"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Login"/>
       </Properties>
       <Events>
@@ -149,6 +158,12 @@
     </Component>
     <Component class="javax.swing.JButton" name="btn_goToRegisterPage">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="cc" green="ff" red="99" type="rgb"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="14" style="0"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="go to register page"/>
       </Properties>
       <Events>
@@ -157,16 +172,11 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkBox_i_am_an_admin">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="14" style="2"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="I am an Admin"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="btn_goToAdminPageForTest">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="go to admin page for test"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_goToAdminPageForTestActionPerformed"/>
-      </Events>
     </Component>
   </SubComponents>
 </Form>

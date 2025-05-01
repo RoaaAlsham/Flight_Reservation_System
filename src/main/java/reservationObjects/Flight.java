@@ -19,8 +19,8 @@ public class Flight {
     private Airport destinationAirport;
     private LocalDateTime departureTime;
     private int seatPrice;
-
-   
+    private Vector<Reservation> reservations= new Vector<>();
+    private Vector<Seat> reservedSeats= new Vector<>();
     private int flightSeatNumber;
     private Vector<Seat> seats;
 
@@ -48,20 +48,42 @@ public class Flight {
 //                   
 //        }    
     }
+    public void unReserveSeats(Vector<Seat> reserved){
     
+        for(Seat reservedSeat: reserved){
+            reservedSeats.remove(reservedSeat); 
+        }
+        int unreservedSeat=0;
+        
+        for(Seat seat: seats){
+        
+            if(seat.isAvaliable()==false){
+                seat.setAvaliable(true);                 
+
+                unreservedSeat++;
+            }
+            if(unreservedSeat==reserved.size()){
+                break;
+            }
+        
+        }
+    }
     public Vector<Seat> reserveSeat( int seatnum ){
-        Vector<Seat> reservedSeats= new Vector<>();
+        Vector<Seat> newSeats= new Vector<>();
         int reservedSeatCount=0;
-        for (Seat airplaneSeat : seats) {
-            if(airplaneSeat.isAvaliable()==true){
-                reservedSeats.add(airplaneSeat);
+        for (Seat seat : seats) {
+            if(seat.isAvaliable()==true){
+                seat.setAvaliable(false);                 
+                reservedSeats.add(seat);
+                newSeats.add(seat);
+                
                 reservedSeatCount++;
             }
             if(reservedSeatCount==seatnum){
                 break;
             }
         }
-        return reservedSeats;
+        return newSeats;
     }
     
     public int getFlightId() {
@@ -173,6 +195,22 @@ public class Flight {
 
     public void setSeats(Vector<Seat> seats) {
         this.seats = seats;
+    }
+
+    public Vector<Seat> getReservedSeats() {
+        return reservedSeats;
+    }
+
+    public void setReservedSeats(Vector<Seat> reservedSeats) {
+        this.reservedSeats = reservedSeats;
+    }
+
+    public Vector<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(Vector<Reservation> reservations) {
+        this.reservations = reservations;
     }
     
 }

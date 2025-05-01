@@ -4,7 +4,6 @@
  */
 package OperationsAndServices;
 
-import OperationsAndServices.FlightDataLists;
 import java.util.Vector;
 import reservationObjects.*;
 /**
@@ -14,6 +13,14 @@ import reservationObjects.*;
 public class ReservationOperations {
     FlightDataLists flightDataList;
 
+    public Reservation getReservationByID(int id){
+        for(Reservation reservation : flightDataList.getReservations()){
+            if(reservation.getReservationId()==id){
+                return reservation;
+            }
+        }
+        return null;
+    }
     public ReservationOperations(FlightDataLists flightDataList) {
         this.flightDataList = flightDataList;
     }
@@ -52,5 +59,9 @@ public class ReservationOperations {
             }
         }
         return null;
+    }
+    
+    public void deleteReservationFromList(Reservation reservation){
+        flightDataList.getReservations().remove(reservation);
     }
 }

@@ -17,6 +17,7 @@ import reservationObjects.Admin;
 import reservationObjects.Airport;
 import reservationObjects.Customer;
 import reservationObjects.Flight;
+import reservationObjects.Reservation;
 
 /**
  *
@@ -50,7 +51,7 @@ public class AdminManagementPage extends javax.swing.JPanel {
         this.airports = flightDataLists.getAirports();
         initComponents();
 
-        lbl_username.setText(loggedinAdmin.getFirstName() + " " + loggedinAdmin.getLastName());
+        lbl_username.setText(loggedinAdmin.getFirstName() + " password:  " + loggedinAdmin.getPassword());
         flightTableColumnsNames = initializeFlightTableColumnsNames();
         dtm = new DefaultTableModel();
         dtm.setColumnIdentifiers(flightTableColumnsNames);
@@ -59,22 +60,20 @@ public class AdminManagementPage extends javax.swing.JPanel {
         reservationOperations = new ReservationOperations(flightDataLists);
 
         setValuesForComboBoxes();
-        
-        initializeFlightIDcombobox();
-        
+             
         dlm1= new DefaultListModel();
         dlm2= new DefaultListModel();
-        list_customers.setModel(dlm1);
-        list_airports.setModel(dlm2);;
+        reservationList.setModel(dlm1);
+        emailsList.setModel(dlm2);
         
         setListData();
     }
     public void setListData(){
-        for(Customer customer: flightDataLists.getCustomers()){
-            dlm1.addElement(customer.getEmail());
+        for(Reservation reservation : flightDataLists.getReservations()){
+            dlm1.addElement("flight ID: " + reservation.getFlight().getFlightId()+ "___ count: "+ reservation.getReservedSeats().size());
         }
-        for(Airport airport: flightDataLists.getAirports()){
-            dlm2.addElement(airport.getAirportName());
+        for(Customer customer: flightDataLists.getCustomers()){
+            dlm2.addElement(customer.getEmail());
         }
     }
     public Vector<String> initializeFlightTableColumnsNames() {
@@ -83,8 +82,9 @@ public class AdminManagementPage extends javax.swing.JPanel {
         names.add("departure");
         names.add("arrival");
         names.add("departure date");
-        names.add("seat number");
+        names.add("seat count");
         names.add("seat price");
+        names.add("available seats");
         return names;
     }
 
@@ -96,12 +96,7 @@ public class AdminManagementPage extends javax.swing.JPanel {
         }
     }
 
-    public void initializeFlightIDcombobox() {
-        combo_flightID.removeAllItems();
-        for (Flight flight : flights) {
-            combo_flightID.addItem(String.valueOf(flight.getFlightId()));
-        }
-    }
+ 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -126,29 +121,28 @@ public class AdminManagementPage extends javax.swing.JPanel {
         combo_origin = new javax.swing.JComboBox<>();
         combo_destination = new javax.swing.JComboBox<>();
         txt_dateTime = new javax.swing.JTextField();
-        combo_flightID = new javax.swing.JComboBox<>();
         btn_logoutAdmin = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        list_customers = new javax.swing.JList<>();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        list_airports = new javax.swing.JList<>();
+        reservationList = new javax.swing.JList<>();
         jLabel2 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        emailsList = new javax.swing.JList<>();
         jLabel4 = new javax.swing.JLabel();
 
         lbl_adminManagementPage.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
-        lbl_adminManagementPage.setForeground(new java.awt.Color(0, 153, 153));
+        lbl_adminManagementPage.setForeground(new java.awt.Color(0, 102, 102));
         lbl_adminManagementPage.setText("Admin Management Page");
 
         flightsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6"
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", ""
             }
         ));
         jScrollPane1.setViewportView(flightsTable);
@@ -159,6 +153,8 @@ public class AdminManagementPage extends javax.swing.JPanel {
         lbl_username.setForeground(new java.awt.Color(102, 0, 102));
         lbl_username.setText("jLabel2");
 
+        btn_addFlight.setBackground(new java.awt.Color(255, 153, 255));
+        btn_addFlight.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_addFlight.setText("add Flight");
         btn_addFlight.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -180,20 +176,26 @@ public class AdminManagementPage extends javax.swing.JPanel {
             }
         });
 
-        btn_editSelectedFlight.setText("edit flight by id ");
+        btn_editSelectedFlight.setBackground(new java.awt.Color(255, 102, 255));
+        btn_editSelectedFlight.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn_editSelectedFlight.setText("edit flight ");
         btn_editSelectedFlight.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_editSelectedFlightActionPerformed(evt);
             }
         });
 
-        btn_removeSelevtedFlight.setText("remove flight by id");
+        btn_removeSelevtedFlight.setBackground(new java.awt.Color(255, 153, 255));
+        btn_removeSelevtedFlight.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn_removeSelevtedFlight.setText("remove flight");
         btn_removeSelevtedFlight.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_removeSelevtedFlightActionPerformed(evt);
             }
         });
 
+        btn_showAllFlights.setBackground(new java.awt.Color(255, 102, 255));
+        btn_showAllFlights.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_showAllFlights.setText("show all flights");
         btn_showAllFlights.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -203,6 +205,8 @@ public class AdminManagementPage extends javax.swing.JPanel {
 
         txt_dateTime.setText("dd-MM-yyyy HH:mm");
 
+        btn_logoutAdmin.setBackground(new java.awt.Color(102, 255, 204));
+        btn_logoutAdmin.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_logoutAdmin.setText("LOGOUT");
         btn_logoutAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -210,15 +214,17 @@ public class AdminManagementPage extends javax.swing.JPanel {
             }
         });
 
-        jLabel3.setText("**  to remove or edit a flight, you have only to  choose id from ID comboBox and click on the button");
+        jLabel3.setText("**  to remove or edit a flight, you have to select a flight on the table");
 
-        jScrollPane2.setViewportView(list_customers);
+        jScrollPane2.setViewportView(reservationList);
 
-        jScrollPane3.setViewportView(list_airports);
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel2.setText("view reservation history");
 
-        jLabel2.setText("view customer emails");
+        jScrollPane3.setViewportView(emailsList);
 
-        jLabel4.setText("view airports names");
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel4.setText("registered customers emails list");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -227,53 +233,60 @@ public class AdminManagementPage extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(61, 61, 61)
-                        .addComponent(lbl_adminManagementPage)
-                        .addGap(40, 40, 40)
-                        .addComponent(jLabel1)
-                        .addGap(37, 37, 37)
-                        .addComponent(lbl_username))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(38, 38, 38)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 764, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addGap(6, 6, 6)
-                                    .addComponent(combo_flightID, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(32, 32, 32)
-                                    .addComponent(combo_origin, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(34, 34, 34)
-                                    .addComponent(combo_destination, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(txt_dateTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(txt_seatNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(txt_seatPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btn_addFlight, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(114, 114, 114)
+                                .addComponent(combo_origin, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btn_editSelectedFlight, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(combo_destination, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(txt_dateTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btn_removeSelevtedFlight)
-                                .addGap(39, 39, 39)
-                                .addComponent(btn_showAllFlights, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txt_seatNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txt_seatPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addComponent(btn_logoutAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(btn_addFlight, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(46, 46, 46)
+                                        .addComponent(btn_editSelectedFlight, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btn_removeSelevtedFlight, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(47, 47, 47)
+                                        .addComponent(btn_showAllFlights, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(btn_logoutAdmin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(161, 161, 161)
-                        .addComponent(jLabel2)
-                        .addGap(255, 255, 255)
-                        .addComponent(jLabel4))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(120, 120, 120)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(105, 105, 105)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(94, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(61, 61, 61)
+                                .addComponent(lbl_adminManagementPage)
+                                .addGap(40, 40, 40)
+                                .addComponent(jLabel1)
+                                .addGap(37, 37, 37)
+                                .addComponent(lbl_username))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(101, 101, 101)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(99, 99, 99)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 832, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(38, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(165, 165, 165)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(209, 209, 209))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -291,8 +304,7 @@ public class AdminManagementPage extends javax.swing.JPanel {
                     .addComponent(txt_seatPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(combo_origin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(combo_destination, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_dateTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(combo_flightID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_dateTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(51, 51, 51)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_addFlight)
@@ -300,17 +312,17 @@ public class AdminManagementPage extends javax.swing.JPanel {
                     .addComponent(btn_removeSelevtedFlight)
                     .addComponent(btn_showAllFlights))
                 .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(btn_logoutAdmin))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_logoutAdmin)
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane3)
+                    .addComponent(jScrollPane2))
                 .addGap(35, 35, 35))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -329,6 +341,10 @@ public class AdminManagementPage extends javax.swing.JPanel {
         Airport originAirport = reservationOperations.returnAirportByCity(combo_origin.getSelectedItem().toString());
         Airport destinationAirport = reservationOperations.returnAirportByCity(combo_destination.getSelectedItem().toString());
         LocalDateTime dateTime;
+        
+        if(combo_origin.getSelectedItem().toString().equals(combo_destination.getSelectedItem().toString())){
+            throw new IllegalArgumentException();
+        }
 
         try {
             String txtDateTime = txt_dateTime.getText();
@@ -340,13 +356,14 @@ public class AdminManagementPage extends javax.swing.JPanel {
             Flight flight = new Flight(originAirport, destinationAirport, dateTime, seatNumber, seatPrice);
             reservationOperations.addFlightToList(flight);
             dtm.addRow(prepareFlightRow(flight));
-            initializeFlightIDcombobox();
             JOptionPane.showMessageDialog(mainFrame, "FLIGHT ADDED SUCCESSFULLY ");
 
         } catch (DateTimeParseException e) {
             JOptionPane.showMessageDialog(mainFrame, "Invalid date-time format. Please use dd-MM-yyyy HH:mm");
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(mainFrame, "invalid format for numbers,\n check the number does not include any spaces or special characters");
+        }catch(IllegalArgumentException e){
+            JOptionPane.showMessageDialog(mainFrame, "a flight cannot has the same origin and destiantion");
         }
 
     }//GEN-LAST:event_btn_addFlightActionPerformed
@@ -361,7 +378,17 @@ public class AdminManagementPage extends javax.swing.JPanel {
 
     private void btn_editSelectedFlightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editSelectedFlightActionPerformed
         // TODO add your handling code here:
-        Flight flight = reservationOperations.getFlightById(Integer.parseInt(combo_flightID.getSelectedItem().toString()));
+        
+        if(flightsTable.getSelectedRow()==-1){
+            JOptionPane.showMessageDialog(mainFrame, "please select a flight to continue");
+            return;
+        }
+        int flightId=Integer.parseInt(dtm.getValueAt(flightsTable.getSelectedRow(), 0).toString());
+        Flight flight = reservationOperations.getFlightById(flightId);
+        if(flight.getReservations().size()>0){
+            JOptionPane.showMessageDialog(mainFrame, "flight cannot be edited or deleted because it has already reserved by some customers");
+            return;
+        }
         Airport originAirport = reservationOperations.returnAirportByCity(combo_origin.getSelectedItem().toString());
         Airport destinationAirport = reservationOperations.returnAirportByCity(combo_destination.getSelectedItem().toString());
         LocalDateTime dateTime;
@@ -402,9 +429,17 @@ public class AdminManagementPage extends javax.swing.JPanel {
 
     private void btn_removeSelevtedFlightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_removeSelevtedFlightActionPerformed
         // TODO add your handling code here:  
-        int flightId = Integer.parseInt(combo_flightID.getSelectedItem().toString());
+        if(flightsTable.getSelectedRow()==-1){
+            JOptionPane.showMessageDialog(mainFrame, "please select a flight to continue");
+            return;
+        }
+        int flightId=Integer.parseInt(dtm.getValueAt(flightsTable.getSelectedRow(), 0).toString());
+        
         Flight flight = reservationOperations.getFlightById(flightId);
-
+        if(!flight.getReservations().isEmpty()){
+            JOptionPane.showMessageDialog(mainFrame, "flight cannot be edited or deleted because it has already reserved by some customers");
+            return;
+        }
         boolean found = false;
 
         for (int i = 0; i < dtm.getRowCount(); i++) {
@@ -419,8 +454,15 @@ public class AdminManagementPage extends javax.swing.JPanel {
 
         if (found) {
             btn_showAllFlightsActionPerformed(evt); // refresh the table
-            combo_flightID.removeItem(String.valueOf(flightId)); // remove from combo box
+            
             JOptionPane.showMessageDialog(mainFrame, "Flight deleted successfully");
+            //delete assosiated reservations
+            for(Reservation reservation: flightDataLists.getReservations()){
+                if(reservation.getFlight().getFlightId()==flightId){
+                    flightDataLists.getReservations().remove(reservation);
+                }
+            }
+            
         } else {
             JOptionPane.showMessageDialog(mainFrame, "Flight not found!");
         }
@@ -434,12 +476,14 @@ public class AdminManagementPage extends javax.swing.JPanel {
         String formattedDate = flight.getDepartureTime().format(formatter);
         String seatNumber = String.valueOf(flight.getFlightSeatNumber());
         String seatPrice = String.valueOf(flight.getSeatPrice());
+        String remainedSeats= String.valueOf(flight.getAvalilableSeats().size());
         row.add(id);
         row.add(arrival);
         row.add(destination);
         row.add(formattedDate);
         row.add(seatNumber);
         row.add(seatPrice);
+        row.add(remainedSeats);
         return row;
 
     }
@@ -451,8 +495,8 @@ public class AdminManagementPage extends javax.swing.JPanel {
     private javax.swing.JButton btn_removeSelevtedFlight;
     private javax.swing.JButton btn_showAllFlights;
     private javax.swing.JComboBox<String> combo_destination;
-    private javax.swing.JComboBox<String> combo_flightID;
     private javax.swing.JComboBox<String> combo_origin;
+    private javax.swing.JList<String> emailsList;
     private javax.swing.JTable flightsTable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -463,8 +507,7 @@ public class AdminManagementPage extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lbl_adminManagementPage;
     private javax.swing.JLabel lbl_username;
-    private javax.swing.JList<String> list_airports;
-    private javax.swing.JList<String> list_customers;
+    private javax.swing.JList<String> reservationList;
     private javax.swing.JTextField txt_dateTime;
     private javax.swing.JTextField txt_seatNumber;
     private javax.swing.JTextField txt_seatPrice;

@@ -4,8 +4,6 @@
  */
 package GUI;
 
-import FlightReservationExceptions.PersonNotFoundException;
-import OperationsAndServices.AdminOperations;
 import OperationsAndServices.FlightDataLists;
 import java.awt.CardLayout;
 import java.time.LocalDateTime;
@@ -41,12 +39,14 @@ public class MainFrame extends javax.swing.JFrame {
         mainPanel= new JPanel(cardLayout);
         RegisterPage registerPage= new RegisterPage(this,flightDataLists);
         LoginPage loginPage= new LoginPage(this,flightDataLists);
+        
         mainPanel.add(registerPage,"RegisterPage");
         mainPanel.add(loginPage,"LoginPage");
         
         setContentPane(mainPanel);
-        setSize(800, 700);
+        setSize(850, 750);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null); 
         setVisible(true);
         
         

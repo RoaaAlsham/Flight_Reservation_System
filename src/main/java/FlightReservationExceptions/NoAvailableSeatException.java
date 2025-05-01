@@ -15,7 +15,8 @@ public class NoAvailableSeatException extends RuntimeException{
     private int askedSeatNumber;
 
     public NoAvailableSeatException(Flight flight, int askedSeatNumber) {
-        super("no available seat found for this flight");
+        super("no available seat found for this flight, \n already reserved seat count is : "+ 
+                flight.getReservedSeats().size() +"\n so asked seat number "+askedSeatNumber+" cannot be reserved");
         this.flight = flight;
         this.askedSeatNumber = askedSeatNumber;
     }

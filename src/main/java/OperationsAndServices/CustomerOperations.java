@@ -6,10 +6,8 @@ package OperationsAndServices;
 
 import FlightReservationExceptions.EmptyFieldException;
 import FlightReservationExceptions.InvalidEmailFormatException;
-import java.util.Vector;
 import reservationObjects.Customer;
 
-import OperationsAndServices.FlightDataLists;
 import FlightReservationExceptions.PersonNotFoundException;
 import FlightReservationExceptions.UsedEmailException;
 

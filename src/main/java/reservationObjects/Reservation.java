@@ -20,6 +20,7 @@ public class Reservation {
     private float TicketPrice;
     
     public Reservation(Customer customer, Vector<Seat> reservedSeats, Flight flight) {
+        this.reservationId=++baseCounter;
         this.customer = customer;
         this.reservedSeats = reservedSeats;
         this.flight = flight;

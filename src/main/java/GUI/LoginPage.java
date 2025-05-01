@@ -64,21 +64,25 @@ public class LoginPage extends javax.swing.JPanel {
         lbl_haventYouRegistered = new javax.swing.JLabel();
         btn_goToRegisterPage = new javax.swing.JButton();
         checkBox_i_am_an_admin = new javax.swing.JCheckBox();
-        btn_goToAdminPageForTest = new javax.swing.JButton();
 
         lbl_loginPage.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
         lbl_loginPage.setForeground(new java.awt.Color(0, 153, 153));
         lbl_loginPage.setText("Login Page");
 
+        lbl_email.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         lbl_email.setText("Email");
 
+        lbl_password.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         lbl_password.setText("password");
 
         jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTextArea1.setRows(5);
         jTextArea1.setText("Help: already registered users\n\n admin1= \"admin1@example.com\", pass= \"admin1\"\n admin2= \"admin2@example.com\", pass= \"admin2\"\n admin3=\"admin3@example.com\", pass= \"admin3\"\n   \ncustomer1= \"customer1@example.com\", pass= \"customer1\"\ncustomer2= \"customer2@example.com\", pass= \"customer2\"\ncustomer3=\"customer3@example.com\", pass= \"customer3\"");
         jScrollPane1.setViewportView(jTextArea1);
 
+        btn_Login.setBackground(new java.awt.Color(255, 153, 204));
+        btn_Login.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         btn_Login.setText("Login");
         btn_Login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,6 +92,8 @@ public class LoginPage extends javax.swing.JPanel {
 
         lbl_haventYouRegistered.setText("Haven't you registered yet? ");
 
+        btn_goToRegisterPage.setBackground(new java.awt.Color(153, 255, 204));
+        btn_goToRegisterPage.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btn_goToRegisterPage.setText("go to register page");
         btn_goToRegisterPage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -95,14 +101,8 @@ public class LoginPage extends javax.swing.JPanel {
             }
         });
 
+        checkBox_i_am_an_admin.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         checkBox_i_am_an_admin.setText("I am an Admin");
-
-        btn_goToAdminPageForTest.setText("go to admin page for test");
-        btn_goToAdminPageForTest.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_goToAdminPageForTestActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -111,14 +111,12 @@ public class LoginPage extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(100, 100, 100)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lbl_haventYouRegistered)
-                                .addComponent(btn_goToAdminPageForTest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGap(31, 31, 31)
-                            .addComponent(btn_goToRegisterPage, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(lbl_haventYouRegistered)
+                        .addGap(31, 31, 31)
+                        .addComponent(btn_goToRegisterPage, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lbl_loginPage, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
@@ -133,7 +131,7 @@ public class LoginPage extends javax.swing.JPanel {
                             .addComponent(checkBox_i_am_an_admin)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btn_Login, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addContainerGap(120, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,15 +150,13 @@ public class LoginPage extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_Login)
                     .addComponent(checkBox_i_am_an_admin))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(24, 24, 24)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_haventYouRegistered)
                     .addComponent(btn_goToRegisterPage))
-                .addGap(27, 27, 27)
-                .addComponent(btn_goToAdminPageForTest)
-                .addContainerGap(95, Short.MAX_VALUE))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -242,15 +238,9 @@ public class LoginPage extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btn_LoginActionPerformed
 
-    private void btn_goToAdminPageForTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_goToAdminPageForTestActionPerformed
-        // TODO add your handling code here:
-        mainFrame.showPanelMethod("AdminManagementPage");
-    }//GEN-LAST:event_btn_goToAdminPageForTestActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_Login;
-    private javax.swing.JButton btn_goToAdminPageForTest;
     private javax.swing.JButton btn_goToRegisterPage;
     private javax.swing.JCheckBox checkBox_i_am_an_admin;
     private javax.swing.JProgressBar jProgressBar1;
